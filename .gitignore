@@ -1,0 +1,39 @@
+# Operating System artifacts
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Local IDE & Editor configuration
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.gemini/
+.agent/
+.agents/
+
+# Personal Agent Skills & Local Tooling (prevents accidental leak)
+antigravity_global_skills/
+
+# Large Internal Research Documents
+research/*.pdf
+research/*_raw_text.txt
+research/*_clean_text.txt
+
+# Logs & Environment Secrets
+*.log
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Temporary IDE / Media artifacts
+.tempmediaStorage/
+.user_uploaded/
+scratch/
+.system_generated/

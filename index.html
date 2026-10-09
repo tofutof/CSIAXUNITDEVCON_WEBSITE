@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSIA x UnitDEVCON // Cyber Security Community & Wargames</title>
+  <meta name="description" content="CSIA x UnitDEVCON: Elite Cybersecurity Education, Defensive & Offensive Ops Community, CTF Wargames, and Ethical Hacking Skills.">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Share+Tech+Mono&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="cyber-theme">
+  <!-- Scanlines & Noise FX Overlay -->
+  <div class="crt-scanlines" aria-hidden="true"></div>
+  <div class="crt-vignette" aria-hidden="true"></div>
+  <div class="grid-background" aria-hidden="true"></div>
+
+  <!-- Top Tactical HUD Bar -->
+  <header class="hud-top-bar" id="hudTopBar">
+    <div class="hud-top-nav-row">
+      <div class="hud-status-cluster">
+        <div class="status-indicator live-pulse"></div>
+        <span class="hud-brand-tag">CSIA x UNITDEVCON</span>
+        <span class="mono-label desktop-only">COORDS:</span>
+        <span class="mono-value desktop-only" id="nodeCoords">LAT 15.1450°N // LON 120.5887°E</span>
+        <span class="separator desktop-only">|</span>
+        <span class="mono-label desktop-only">ETHOS:</span>
+        <span class="mono-value text-accent desktop-only">CYBERSECURITY NOT GATEKEPT</span>
+      </div>
+
+      <div class="hud-quick-actions">
+        <button class="hud-btn" id="soundToggleBtn" title="Toggle 8-bit Audio Synthesizer">
+          <span class="hud-btn-icon" id="soundIcon">🔊</span>
+          <span class="hud-btn-text" id="soundText">AUDIO: ON</span>
+        </button>
+
+        <button class="hud-btn" id="terminalToggleBtn" title="Open Interactive CSIA Hacker Shell">
+          <span class="hud-btn-icon">⚡</span>
+          <span class="hud-btn-text">TERMINAL [~]</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="view-mode-selector">
+      <span class="mode-label desktop-only">VIEW:</span>
+      <button class="mode-btn active" data-view="deck" id="viewDeckBtn">HUD DECK</button>
+      <button class="mode-btn" data-view="dual" id="viewDualBtn">DUAL DEVICE</button>
+      <button class="mode-btn" data-view="matrix" id="viewMatrixBtn">SKILLS MATRIX</button>
+      <button class="mode-btn" data-view="gallery" id="viewGalleryBtn">EVENT GALLERY</button>
+      <button class="mode-btn" data-view="halloffame" id="viewHallOfFameBtn">THE ALLIANCE</button>
+    </div>
+  </header>
+
+  <!-- Main Viewport Container -->
+  <main class="main-viewport" id="mainViewport">
+    
+    <!-- ==================== VIEW 1: FULL COMMAND DECK ==================== -->
+    <section class="command-deck-view active" id="commandDeckSection">
+      
+      <!-- Top Meta Taglines -->
+      <div class="meta-taglines-row">
+        <div class="brand-subtag">
+          <span class="subtag-bracket">[</span>
+          <span class="subtag-text">CSIA (HAU) x UNITDEVCON (DEVCON x UNIT2000)</span>
+          <span class="subtag-dots">***</span>
+          <span class="subtag-bracket">]</span>
+          <span class="subtag-desc">BASED IN ANGELES CITY, PAMPANGA // ZERO GATEKEEPING</span>
+        </div>
+
+        <div class="mission-dispatch">
+          <p class="dispatch-text">
+            FREE WORKSHOPS & WARGAMES FOR EVERY DEFENDER.<br>
+            <span class="highlight-neon">CYBERSECURITY IS NOT GATEKEPT HERE.</span>
+          </p>
+          <div class="dispatch-code">AUTH://DEVCON-UNIT2000-CSIA:0x84FF00</div>
+        </div>
+      </div>
+
+      <!-- Core Interactive Globe & Canvas Stage -->
+      <div class="globe-stage-wrapper" id="globeStage">
+        <!-- The 3D Pixel Globe Canvas -->
+        <canvas id="pixelGlobeCanvas" class="pixel-globe-canvas" width="900" height="900"></canvas>
+
+        <!-- Canvas HUD Overlay Rings and Reticles -->
+        <div class="canvas-reticle ring-outer" aria-hidden="true"></div>
+        <div class="canvas-reticle ring-inner" aria-hidden="true"></div>
+        <div class="canvas-crosshair top-left" aria-hidden="true">+</div>
+        <div class="canvas-crosshair top-right" aria-hidden="true">+</div>
+        <div class="canvas-crosshair bottom-left" aria-hidden="true">+</div>
+        <div class="canvas-crosshair bottom-right" aria-hidden="true">+</div>
+
+        <!-- Center Hero Text Floating Overlay -->
+        <div class="hero-center-overlay">
+          <h1 class="hero-pixel-title" id="heroTitle">
+            UNITDEVCON<span class="title-slash">x</span>CSIA<span class="title-slash">//</span><span class="title-bracket">&lt;</span>
+          </h1>
+
+          <p class="hero-subtext">
+            A grassroots alliance between <strong>CSIA</strong> (Cybersecurity Intelligence Alliance of Holy Angel University) 
+            and <strong>UnitDEVCON</strong> (collaborative initiative of <strong>DEVCON</strong> and <strong>UNIT2000</strong>). 
+            We provide 100% free cybersecurity workshops, CTF wargames, and mentorship in Angeles City — <em>cybersecurity skills are not gatekept.</em>
+          </p>
+
+          <div class="hero-action-row">
+            <a href="#socials" class="btn-cyber-primary" id="joinDiscordBtn">
+              <span class="bracket">{</span>
+              <span class="btn-text">FOLLOW OUR SOCIALS</span>
+              <span class="bracket">}</span>
+            </a>
+
+            <a href="ssh://level0@192.168.100.52:2222" class="btn-cyber-secondary" id="enterCtfBtn" title="Connect: ssh level0@192.168.100.52 -p 2222">
+              <span class="bracket">&lt;</span>
+              <span class="btn-text">ENTER CTF WARGAMES</span>
+              <span class="bracket">&gt;</span>
+            </a>
+          </div>
+
+          <div class="globe-drag-hint">
+            <span class="hint-icon">✥</span>
+            <span>CLICK & DRAG GLOBE TO ROTATE THREAT NODES</span>
+          </div>
+        </div>
+
+        <!-- Floating Tactical HUD Cards (Overlaying around the Globe) -->
+        <div class="tactical-hud-card hud-card-1" id="cardRedTeam" data-skill="red-team">
+          <div class="card-header">
+            <span class="card-glyph">💀</span>
+            <span class="card-id">OFFENSIVE & DEFENSIVE LABS</span>
+          </div>
+          <div class="card-body">
+            <p>Hands-on adversary emulation, web exploit dissection, kernel exploitation, and automated zero-day triage with UNIT2000 mentors.</p>
+          </div>
+          <div class="card-footer">
+            <span class="badge-mini">100% FREE LABS</span>
+            <span class="status-live">ONLINE ●</span>
+          </div>
+        </div>
+
+        <div class="tactical-hud-card hud-card-2" id="cardGovernance" data-skill="governance">
+          <div class="card-header">
+            <span class="card-glyph">🛡️</span>
+            <span class="card-id">WHAT WE BELIEVE</span>
+          </div>
+          <div class="card-body">
+            <p>Cybersecurity Not Gatekept. 100% free hands-on training, white-hat ethics, and grassroots community mentorship with zero paywalls.</p>
+          </div>
+          <div class="card-footer">
+            <span class="badge-mini">NO GATEKEEPING</span>
+            <span class="status-live">CORE ETHOS</span>
+          </div>
+        </div>
+
+        <div class="tactical-hud-card hud-card-3" id="cardAnalytics" data-skill="analytics">
+          <div class="card-header">
+            <span class="card-glyph">⚡</span>
+            <span class="card-id">CONVERGENCE WORKSHOPS</span>
+          </div>
+          <div class="card-body">
+            <p>Regular free community meetups in Angeles City covering cyber governance, purple teaming, and secure coding for all developers.</p>
+          </div>
+          <div class="card-footer">
+            <span class="badge-mini">DEVCON x UNIT2000</span>
+            <span class="status-live">ANGELES HUB</span>
+          </div>
+        </div>
+
+        <div class="tactical-hud-card hud-card-4" id="cardCyberfox" data-skill="sentinel">
+          <div class="card-header">
+            <span class="card-glyph">🦊</span>
+            <span class="card-id">CYBERFOX CODENAME VAULT</span>
+          </div>
+          <div class="card-body">
+            <p>CSIA's white-hat persona system at Holy Angel University. Register your operational codename and climb the local CTF ladder.</p>
+          </div>
+          <div class="card-footer">
+            <span class="badge-mini">HAU CSIA</span>
+            <span class="status-live">VERIFIED 🛡️</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== VIEW 2: DUAL DEVICE VIEW (Matches Reference Mockup) ==================== -->
+    <section class="dual-device-view" id="dualDeviceSection">
+      
+      <!-- Dual Device Social Transmission Hub Header -->
+      <div class="dual-device-header">
+        <div class="section-tag">[ TRANSMISSION CHANNELS // COMMUNITY HUBS ]</div>
+        <h2 class="dual-device-title">FOLLOW OUR OFFICIAL COMMUNITY SOCIALS</h2>
+        <p class="dual-device-desc">Direct channels for CSIA (Holy Angel University) and UnitDEVCON (UNIT2000 & DEVCON). Access free workshop announcements, CTF drills, and wargame feeds.</p>
+
+        <!-- Main Social Quick Command Bar -->
+        <div class="social-command-bar">
+          <div class="social-command-group csia-group">
+            <span class="group-lead"><span class="badge-dot red"></span> CSIA SOCIALS:</span>
+            <a href="https://www.instagram.com/csia.hausoc/" target="_blank" rel="noopener noreferrer" class="social-pill-btn instagram" title="CSIA Instagram">
+              <span class="pill-icon">📸</span>
+              <span>CSIA INSTAGRAM</span>
+            </a>
+            <a href="https://www.facebook.com/csia.hausoc" target="_blank" rel="noopener noreferrer" class="social-pill-btn facebook" title="CSIA Facebook">
+              <span class="pill-icon">👥</span>
+              <span>CSIA FACEBOOK</span>
+            </a>
+          </div>
+
+          <div class="command-bar-divider" aria-hidden="true"></div>
+
+          <div class="social-command-group unit-group">
+            <span class="group-lead"><span class="badge-dot green"></span> UNITDEVCON SOCIALS:</span>
+            <a href="https://www.facebook.com/profile.php?id=61587485291140" target="_blank" rel="noopener noreferrer" class="social-pill-btn facebook unit2000" title="UNIT2000 Facebook">
+              <span class="pill-icon">👥</span>
+              <span>UNIT2000 FACEBOOK</span>
+            </a>
+            <a href="https://www.facebook.com/devconpampanga" target="_blank" rel="noopener noreferrer" class="social-pill-btn facebook devcon" title="DEVCON Facebook">
+              <span class="pill-icon">👥</span>
+              <span>DEVCON FACEBOOK</span>
+            </a>
+            <a href="https://www.instagram.com/devconph/" target="_blank" rel="noopener noreferrer" class="social-pill-btn instagram" title="DEVCON Instagram">
+              <span class="pill-icon">📸</span>
+              <span>DEVCON INSTAGRAM</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dual-showcase-container">
+        
+        <!-- Left: Mobile Cyber Phone Frame -->
+        <div class="mockup-phone-frame">
+          <div class="phone-speaker-notch">
+            <span class="speaker-pill"></span>
+            <span class="camera-lens"></span>
+          </div>
+          
+          <div class="phone-screen-content">
+            <div class="phone-status-bar">
+              <span>CSIA-NET</span>
+              <span>13:37</span>
+              <span>100% ⚡</span>
+            </div>
+
+            <div class="phone-hero-header">
+              <div class="phone-tag">FOLLOW OFFICIAL SOCIALS * * *</div>
+              <h2 class="phone-title">UNITDEVCON<span class="title-slash">x</span>CSIA<span class="cursor-blink">_</span></h2>
+              <div class="phone-subtext">
+                CONNECT TO OUR COMMUNITY HUBS FOR FREE WORKSHOPS & CTF WARGAMES.
+              </div>
+
+              <!-- CSIA Buttons on Phone -->
+              <div class="phone-social-cluster">
+                <div class="phone-cluster-label">
+                  <span class="label-dot red"></span>
+                  <strong>CSIA SOCIALS:</strong>
+                </div>
+                <div class="phone-social-btn-row">
+                  <a href="https://www.instagram.com/csia.hausoc/" target="_blank" rel="noopener noreferrer" class="btn-phone-social instagram">
+                    📸 CSIA INSTA
+                  </a>
+                  <a href="https://www.facebook.com/csia.hausoc" target="_blank" rel="noopener noreferrer" class="btn-phone-social facebook">
+                    👥 CSIA FB
+                  </a>
+                </div>
+              </div>
+
+              <!-- UNITDEVCON Buttons on Phone -->
+              <div class="phone-social-cluster">
+                <div class="phone-cluster-label">
+                  <span class="label-dot green"></span>
+                  <strong>UNITDEVCON SOCIALS:</strong>
+                </div>
+                <div class="phone-social-btn-row">
+                  <a href="https://www.facebook.com/profile.php?id=61587485291140" target="_blank" rel="noopener noreferrer" class="btn-phone-social facebook">
+                    👥 UNIT2000 FB
+                  </a>
+                  <a href="https://www.facebook.com/devconpampanga" target="_blank" rel="noopener noreferrer" class="btn-phone-social facebook">
+                    👥 DEVCON FB
+                  </a>
+                </div>
+                <a href="https://www.instagram.com/devconph/" target="_blank" rel="noopener noreferrer" class="btn-phone-social instagram full-width">
+                  📸 DEVCON INSTAGRAM
+                </a>
+              </div>
+            </div>
+
+            <div class="phone-cards-list">
+              <div class="phone-card">
+                <div class="card-title-row">
+                  <span class="card-icon">🛡️</span>
+                  <strong>FREE HANDS-ON WORKSHOPS</strong>
+                </div>
+                <p>Follow our pages for alerts on 100% free ethical hacking bootcamps, web exploit labs, and purple teaming sessions.</p>
+              </div>
+
+              <div class="phone-card">
+                <div class="card-title-row">
+                  <span class="card-icon">🚩</span>
+                  <strong>LIVE CTF & FLAG DROPS</strong>
+                </div>
+                <p>Never miss a flag drop! Follow our socials for live wargame schedules, solve bounties, and challenge registrations.</p>
+              </div>
+
+              <div class="phone-card">
+                <div class="card-title-row">
+                  <span class="card-icon">⚡</span>
+                  <strong>DEV TALKS & TECH SUMMITS</strong>
+                </div>
+                <p>Stay tuned for guest industry speakers, developer meetups, and career mentorship hosted by UNIT2000 & DEVCON.</p>
+              </div>
+
+              <div class="phone-card">
+                <div class="card-title-row">
+                  <span class="card-icon">🤖</span>
+                  <strong>EXCLUSIVE PERKS & SLIDES</strong>
+                </div>
+                <p>Follow CSIA & DEVCON channels to grab free workshop slide decks, cheat sheets, study jams, and priority event access.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Tactical Tablet / Command Station Screen -->
+        <div class="mockup-tablet-frame">
+          <div class="tablet-bezel-border">
+            <div class="tablet-screen-header">
+              <span class="tablet-dot red"></span>
+              <span class="tablet-dot yellow"></span>
+              <span class="tablet-dot green"></span>
+              <span class="tablet-title-tag">UNITDEVCON // COMMAND DECK v3.8</span>
+              <span class="tablet-clock" id="tabletClock">21:04:18 UTC</span>
+            </div>
+
+            <div class="tablet-screen-body">
+              <div class="tablet-hero-strip">
+                <div class="tablet-title-wrap">
+                  <h2 class="tablet-main-title">UNITDEVCON<span class="title-slash">x</span>CSIA//&lt;<span class="cursor-blink">■</span></h2>
+                  <div class="tablet-meta-line">OFFICIAL COMMUNITY SOCIAL HUBS // FREE WORKSHOPS</div>
+                </div>
+
+                <div class="tablet-social-command-panel">
+                  <!-- CSIA Channel Pillar -->
+                  <div class="tablet-social-pillar csia-pillar">
+                    <div class="pillar-label">
+                      <span class="pillar-dot red"></span>
+                      <span>CSIA (HAU):</span>
+                    </div>
+                    <div class="pillar-btns">
+                      <a href="https://www.instagram.com/csia.hausoc/" target="_blank" rel="noopener noreferrer" class="btn-tablet-social instagram">
+                        <span class="btn-glyph">📸</span> INSTAGRAM
+                      </a>
+                      <a href="https://www.facebook.com/csia.hausoc" target="_blank" rel="noopener noreferrer" class="btn-tablet-social facebook">
+                        <span class="btn-glyph">👥</span> FACEBOOK
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- UNITDEVCON Channel Pillar -->
+                  <div class="tablet-social-pillar unit-pillar">
+                    <div class="pillar-label">
+                      <span class="pillar-dot green"></span>
+                      <span>UNITDEVCON:</span>
+                    </div>
+                    <div class="pillar-btns">
+                      <a href="https://www.facebook.com/profile.php?id=61587485291140" target="_blank" rel="noopener noreferrer" class="btn-tablet-social facebook">
+                        <span class="btn-glyph">👥</span> UNIT2000 FB
+                      </a>
+                      <a href="https://www.facebook.com/devconpampanga" target="_blank" rel="noopener noreferrer" class="btn-tablet-social facebook">
+                        <span class="btn-glyph">👥</span> DEVCON FB
+                      </a>
+                      <a href="https://www.instagram.com/devconph/" target="_blank" rel="noopener noreferrer" class="btn-tablet-social instagram">
+                        <span class="btn-glyph">📸</span> INSTAGRAM
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tablet-interactive-grid">
+                <!-- Mini Globe Container in Tablet -->
+                <div class="tablet-globe-box">
+                  <canvas id="tabletGlobeCanvas" width="500" height="350"></canvas>
+                  <div class="tablet-globe-caption">DEFENSE TOPOLOGY MAP [GLOBAL NODES]</div>
+                </div>
+
+                <div class="tablet-cards-column">
+                  <div class="t-card">
+                    <h4>🛡️ FREE HANDS-ON WORKSHOPS</h4>
+                    <p>Follow our pages for alerts on 100% free ethical hacking bootcamps, web exploit labs, and purple teaming sessions.</p>
+                  </div>
+                  <div class="t-card">
+                    <h4>🚩 LIVE CTF & FLAG DROPS</h4>
+                    <p>Never miss a flag drop! Follow our socials for live wargame schedules, solve bounties, and challenge registrations.</p>
+                  </div>
+                  <div class="t-card">
+                    <h4>⚡ DEV TALKS & TECH SUMMITS</h4>
+                    <p>Stay tuned for guest industry speakers, developer meetups, and career mentorship hosted by UNIT2000 & DEVCON.</p>
+                  </div>
+                  <div class="t-card">
+                    <h4>🤖 EXCLUSIVE PERKS & SLIDES</h4>
+                    <p>Follow CSIA & DEVCON channels to grab free workshop slide decks, cheat sheets, study jams, and priority event access.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: SKILLS MATRIX & CURRICULUM ==================== -->
+    <section class="skills-matrix-view" id="skillsMatrixSection">
+      <div class="matrix-header">
+        <div class="section-tag">[ CURRICULUM MATRIX ]</div>
+        <h2 class="matrix-title">CYBERSECURITY SKILL TRACKS</h2>
+        <p class="matrix-desc">From fundamental defensive postures to zero-day kernel exploitation. Select a track to inspect operational drills.</p>
+      </div>
+
+      <div class="matrix-grid">
+        <div class="track-card" data-track="offensive">
+          <div class="track-badge red">TRACK 01 // OFFENSIVE</div>
+          <h3 class="track-name">RED TEAM & EXPLOITATION</h3>
+          <p class="track-summary">Binary exploitation, heap sprays, reverse engineering, web penetration, and evasion.</p>
+          <ul class="track-modules">
+            <li><span>▪</span> Memory Corruption & ROP Chains</li>
+            <li><span>▪</span> Modern EDR / AV Bypass Techniques</li>
+            <li><span>▪</span> Active Directory Domain Domination</li>
+            <li><span>▪</span> Web3 Reentrancy & Flash Loans</li>
+          </ul>
+          <button class="track-btn" onclick="openTrackDetails('offensive')">INSPECT SYLLABUS &gt;</button>
+        </div>
+
+        <div class="track-card" data-track="defensive">
+          <div class="track-badge blue">TRACK 02 // DEFENSIVE</div>
+          <h3 class="track-name">BLUE TEAM & SIEM OPS</h3>
+          <p class="track-summary">SOC incident response, digital forensics, threat hunting, and packet telemetry analysis.</p>
+          <ul class="track-modules">
+            <li><span>▪</span> Live Threat Hunting with Splunk/ELK</li>
+            <li><span>▪</span> Memory Dump Analysis with Volatility</li>
+            <li><span>▪</span> Suricata & Zeek Network Telemetry</li>
+            <li><span>▪</span> Cloud Incident Response (AWS/GCP)</li>
+          </ul>
+          <button class="track-btn" onclick="openTrackDetails('defensive')">INSPECT SYLLABUS &gt;</button>
+        </div>
+
+        <div class="track-card" data-track="malware">
+          <div class="track-badge green">TRACK 03 // RESEARCH</div>
+          <h3 class="track-name">MALWARE & REVERSE ENG</h3>
+          <p class="track-summary">Static & dynamic binary reverse engineering, Ghidra disassembly, and ransomware triage.</p>
+          <ul class="track-modules">
+            <li><span>▪</span> Ghidra & IDA Pro Disassembly</li>
+            <li><span>▪</span> Sandbox Detonation & Behavioral Logs</li>
+            <li><span>▪</span> Anti-Debugging & Obfuscation Stripping</li>
+            <li><span>▪</span> Rootkit Triage & Kernel Hooks</li>
+          </ul>
+          <button class="track-btn" onclick="openTrackDetails('malware')">INSPECT SYLLABUS &gt;</button>
+        </div>
+
+        <div class="track-card" data-track="wargames">
+          <div class="track-badge purple">TRACK 04 // WARGAMES</div>
+          <h3 class="track-name">CTF ARENA & SPEEDRUNS</h3>
+          <p class="track-summary">Weekly competitive Capture-The-Flag challenges across cryptography, pwn, web, and rev.</p>
+          <ul class="track-modules">
+            <li><span>▪</span> Cryptanalysis & Lattice Attacks</li>
+            <li><span>▪</span> Jeopardy-style CTF Speedruns</li>
+            <li><span>▪</span> Attack-Defense Live Grid Simulation</li>
+            <li><span>▪</span> Team Ladder & Global Standings</li>
+          </ul>
+          <button class="track-btn" onclick="openTrackDetails('wargames')">INSPECT SYLLABUS &gt;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 4: EVENT & WORKSHOP GALLERY ==================== -->
+    <section class="event-gallery-view" id="eventGallerySection">
+      <div class="gallery-header">
+        <div class="section-tag">[ OPERATIONS ARCHIVE // EVENT GALLERY ]</div>
+        <h2 class="gallery-title">PAST EVENTS &amp; WORKSHOP RECAPS</h2>
+        <p class="gallery-subtitle">Dispatches, operational logs, and photo intel from live cybersecurity sessions held in Angeles City, Pampanga.</p>
+
+        <!-- Gallery Filter Tabs -->
+        <div class="gallery-filter-bar" id="galleryFilterBar">
+          <button class="gallery-filter-btn active" data-filter="all">ALL OPERATIONS</button>
+          <button class="gallery-filter-btn" data-filter="csia">CSIA (HAU)</button>
+          <button class="gallery-filter-btn" data-filter="unitdevcon">UNIT DEVCON</button>
+          <button class="gallery-filter-btn" data-filter="convergence">CONVERGENCE SERIES</button>
+        </div>
+      </div>
+
+      <!-- Events List Container (Rendered dynamically from app.js) -->
+      <div class="events-container" id="eventsContainer">
+        <!-- Injected via JS -->
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 5: THE PEOPLE BEHIND THE ALLIANCE ==================== -->
+    <section class="community-wall-view" id="communityWallSection">
+      <div class="wall-header">
+        <div class="section-tag">[ WHO IS BEHIND THE ALLIANCE? // CORE LEADERSHIP ]</div>
+        <h2 class="wall-title">THE PEOPLE BEHIND THE ALLIANCE</h2>
+        <p class="wall-subtitle">Meet the leadership and founders driving CSIA, UNIT2000, and UnitDEVCON — uniting Holy Angel University students, security researchers, and developers in Angeles City, Pampanga.</p>
+      </div>
+
+      <!-- Dedicated 3-Column Leadership Showcase (Only The People Behind The Alliance) -->
+      <div class="alliance-leaders-grid" id="mentorsList">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Terminal Drawer (Drop-up / Drop-down Console) -->
+  <aside class="terminal-drawer" id="terminalDrawer" aria-hidden="true">
+    <div class="terminal-header">
+      <div class="terminal-dots">
+        <span class="t-dot close" id="termCloseBtn"></span>
+        <span class="t-dot min"></span>
+        <span class="t-dot max"></span>
+      </div>
+      <div class="terminal-title">CSIA_BASH // TTY: /dev/pts/42 [SECURITY CLEARANCE: LEVEL 5]</div>
+      <div class="terminal-hint">Type <strong>help</strong> for commands</div>
+    </div>
+
+    <div class="terminal-output" id="terminalOutput">
+      <div class="term-line sys">CSIA x UnitDEVCON OS [Version 4.2.0-cyber-release]</div>
+      <div class="term-line sys">Cryptographic Handshake Verified: 0x84FF00-COMMUNITY</div>
+      <div class="term-line sys">Connected to Global Threat Defense Grid. 4,892 Nodes Online.</div>
+      <div class="term-line prompt-help">Type <span class="term-cmd">help</span> for commands, or <span class="term-cmd">whoami</span> to reveal operator identity.</div>
+    </div>
+
+    <div class="terminal-input-row">
+      <span class="term-prompt">csia@unitdevcon:~$</span>
+      <input type="text" id="terminalInput" class="term-input" placeholder="type a command..." autocomplete="off" spellcheck="false">
+    </div>
+  </aside>
+
+  <!-- Live Free Seminars & Events Footer Bar -->
+  <footer class="hud-footer-ticker">
+    <div class="ticker-badge">FREE EVENTS & SEMINARS:</div>
+    <div class="ticker-marquee-track">
+      <div class="ticker-content" id="tickerContent">
+        <span><strong class="ticker-tag">[FREE SEMINAR]</strong> Convergence III: From Policy to People — The Governance and Human Side of Cyber Risk (DEVCON x UNIT2000)</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[HANDS-ON WORKSHOP]</strong> Kali Linux Tutorial & Environment Setup — 100% Free Hands-on Tooling Clinic (HAU CSIA)</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[FREE CTF EVENT]</strong> CTF Bootcamp: Level Zero — Foundational Jeopardy Challenges, Crypto & Forensics (CSIA)</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[UPCOMING WORKSHOP]</strong> &lt;STAY TUNED&gt; Free Hands-on Cybersecurity Clinics & Wargames in Angeles City</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[COMMUNITY EVENT]</strong> Zero Day Cafe: Informal Cyber Meetup & White-Hat Exchange over Coffee (Angeles City)</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[FREE SEMINAR]</strong> Convergence II: Operation Deep Dive — Offensive Workflows & Adversary Emulation</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[FREE SEMINAR]</strong> Convergence I: Inside the Mind of a Penetration Tester — Real-world AppSec Dissection</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[FREE WARGAMES]</strong> Active Defense Labs: 100% Free Workshops — Cybersecurity Is Never Gatekept</span>
+        <span class="ticker-sep">•••</span>
+        <!-- Continuous loop repeat -->
+        <span><strong class="ticker-tag">[FREE SEMINAR]</strong> Convergence III: From Policy to People — The Governance and Human Side of Cyber Risk (DEVCON x UNIT2000)</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[HANDS-ON WORKSHOP]</strong> Kali Linux Tutorial & Environment Setup — 100% Free Hands-on Tooling Clinic (HAU CSIA)</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[FREE CTF EVENT]</strong> CTF Bootcamp: Level Zero — Foundational Jeopardy Challenges, Crypto & Forensics (CSIA)</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[UPCOMING WORKSHOP]</strong> &lt;STAY TUNED&gt; Free Hands-on Cybersecurity Clinics & Wargames in Angeles City</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[COMMUNITY EVENT]</strong> Zero Day Cafe: Informal Cyber Meetup & White-Hat Exchange over Coffee (Angeles City)</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[FREE SEMINAR]</strong> Convergence II: Operation Deep Dive — Offensive Workflows & Adversary Emulation</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[FREE SEMINAR]</strong> Convergence I: Inside the Mind of a Penetration Tester — Real-world AppSec Dissection</span>
+        <span class="ticker-sep">•••</span>
+        <span><strong class="ticker-tag">[FREE WARGAMES]</strong> Active Defense Labs: 100% Free Workshops — Cybersecurity Is Never Gatekept</span>
+        <span class="ticker-sep">•••</span>
+      </div>
+    </div>
+    <div class="ticker-time" id="liveTickerClock">21:04:18 UTC</div>
+  </footer>
+
+  <!-- Modal for Curriculum Track / Join Details -->
+  <div class="cyber-modal" id="cyberModal" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <span class="modal-bracket">[</span>
+        <span class="modal-title" id="modalTitle">TRACK DOSSIER</span>
+        <span class="modal-bracket">]</span>
+        <button class="modal-close" id="modalCloseBtn">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Injected via JS -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-cyber-primary" id="modalConfirmBtn">
+          <span class="bracket">{</span>
+          <span class="btn-text" id="modalConfirmBtnText">JOIN THIS WORKSHOP</span>
+          <span class="bracket">}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cyber Lightbox Modal for Photo Gallery -->
+  <div class="cyber-lightbox" id="photoLightbox" aria-hidden="true">
+    <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+    <div class="lightbox-dialog">
+      <div class="lightbox-header">
+        <span class="lightbox-tag" id="lightboxTag">EVENT INTEL</span>
+        <span class="lightbox-title" id="lightboxEventTitle">EVENT PHOTO</span>
+        <button class="lightbox-close" id="lightboxCloseBtn">✕ CLOSE</button>
+      </div>
+      <div class="lightbox-body">
+        <button class="lightbox-nav-btn prev" id="lightboxPrevBtn" title="Previous Photo">◀</button>
+        <div class="lightbox-img-frame">
+          <img src="" alt="Event Photograph" id="lightboxImg">
+          <div class="lightbox-caption-bar" id="lightboxCaption">Photo Caption</div>
+        </div>
+        <button class="lightbox-nav-btn next" id="lightboxNextBtn" title="Next Photo">▶</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
