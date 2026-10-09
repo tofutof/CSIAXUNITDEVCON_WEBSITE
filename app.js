@@ -1068,7 +1068,7 @@ const eventGalleryData = [
     recap: 'Comprehensive session examining cyber risk governance, Philippine data privacy compliance, human factors in social engineering, and actionable defensive frameworks for tech enterprises.',
     photos: [
       {
-        url: 'assets/events/convergence_3.svg',
+        url: 'assets/events/convergence_3.jpg',
         caption: 'Convergence III: From Policy to People Official Dispatch',
         tag: 'CONVERGENCE III'
       }
@@ -1088,7 +1088,7 @@ const eventGalleryData = [
     recap: 'Advanced technical deep dive into offensive workflows, adversary emulation, live defense mechanics, and threat modeling for developers and security analysts.',
     photos: [
       {
-        url: 'assets/events/convergence_2.svg',
+        url: 'assets/events/convergence_2.jpg',
         caption: 'Convergence II: Operation Deep Dive Technical Briefing',
         tag: 'CONVERGENCE II'
       }
@@ -1108,7 +1108,7 @@ const eventGalleryData = [
     recap: 'The kickoff gathering of the Convergence series. Senior practitioners unveiled the attacker mindset, common application security oversights, and practical remediation methods.',
     photos: [
       {
-        url: 'assets/events/convergence_1.svg',
+        url: 'assets/events/convergence_1.jpg',
         caption: 'Convergence I: Inside the Mind of a Penetration Tester',
         tag: 'CONVERGENCE I'
       }
@@ -1128,7 +1128,7 @@ const eventGalleryData = [
     recap: 'Informal cyber cafe and meetup in Angeles City. Tech enthusiasts and security researchers gathered over coffee for open discussions on zero-days, bug hunting, and community projects.',
     photos: [
       {
-        url: 'assets/events/zeroday_cafe.svg',
+        url: 'assets/events/zeroday_cafe.jpg',
         caption: 'Zero Day Cafe: Informal Cyber Meetup & Tech Exchange',
         tag: 'ZERO DAY CAFE'
       }
